@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
+/*
+  Values below are copied verbatim from /design/tokens.json.
+  Do not add colors here that are not already in that file.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Neutrals — very slightly teal-biased so they read as chosen, not default */
+  --gray-50: #F7F9F8;
+  --gray-100: #EEF2F1;
+  --gray-200: #E1E7E6;
+  --gray-300: #CBD4D2;
+  --gray-400: #93A3A0;
+  --gray-500: #5B6B69;
+  --gray-600: #45534F;
+  --gray-700: #33403D;
+  --gray-800: #1F2B29;
+  --gray-900: #10201D;
+
+  /* Accent — medical teal */
+  --teal-50: #EFFAF8;
+  --teal-100: #D3F1EC;
+  --teal-400: #2DD4BF;
+  --teal-500: #14B8A6;
+  --teal-600: #0D9488;
+  --teal-700: #0F766E;
+  --teal-800: #115E56;
+
+  --green-50: #ECFDF5;
+  --green-600: #16A34A;
+  --green-700: #15803D;
+
+  --red-50: #FEF2F2;
+  --red-100: #FEE2E2;
+  --red-500: #EF4444;
+  --red-600: #DC2626;
+  --red-700: #B91C1C;
+
+  --amber-50: #FFFBEB;
+  --amber-100: #FEF3C7;
+  --amber-500: #F59E0B;
+  --amber-600: #D97706;
+  --amber-700: #B45309;
+
+  --white: #FFFFFF;
+
+  /* primitive.color.categorical — company identity only, never status */
+  --cat-indigo: #4F46E5;
+  --cat-teal: #0F766E;
+  --cat-violet: #7C3AED;
+  --cat-cyan: #0E7490;
+  --cat-rose: #BE123C;
+  --cat-lime: #4D7C0F;
+  --cat-fuchsia: #A21CAF;
+  --cat-sky: #0369A1;
+  --cat-orange: #C2410C;
+  --cat-slate: #475569;
+
+  /* semantic.color */
+  --color-background: #F4F7F6;
+  --color-foreground: var(--gray-900);
+  --color-surface: var(--white);
+  --color-text-primary: var(--gray-900);
+  --color-text-secondary: var(--gray-500);
+  --color-text-tertiary: var(--gray-400);
+  --color-primary: var(--teal-700);
+  --color-primary-hover: var(--teal-800);
+  --color-primary-foreground: var(--white);
+  --color-accent-soft: var(--teal-50);
+  --color-muted: var(--gray-100);
+  --color-muted-foreground: var(--gray-500);
+  --color-border: var(--gray-200);
+  --color-border-strong: var(--gray-300);
+  --color-danger: var(--red-600);
+  --color-danger-strong: var(--red-700);
+  --color-danger-bg: var(--red-50);
+  --color-warning: var(--amber-500);
+  --color-warning-bg: var(--amber-50);
+  --color-warning-foreground: var(--amber-700);
+
+  /* Header block */
+  --header-bg: #0B4F49;
+  --header-fg: #FFFFFF;
+  --header-dim: rgba(255, 255, 255, 0.62);
+  --header-line: rgba(255, 255, 255, 0.14);
+  --header-inset: rgba(255, 255, 255, 0.08);
+
+  /* Depth — many layers at very low opacity, never a hard drop shadow.
+     Each carries a 1px inset highlight along the top edge so a surface reads
+     as lit from above rather than as a floating rectangle. */
+  --shadow-xs:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 2px rgba(16, 32, 29, 0.035);
+  --shadow-sm:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 2px rgba(16, 32, 29, 0.04),
+    0 4px 10px -6px rgba(16, 32, 29, 0.07);
+  --shadow-md:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(16, 32, 29, 0.035),
+    0 8px 20px -10px rgba(16, 32, 29, 0.09);
+  --shadow-lg:
+    0 4px 8px rgba(16, 32, 29, 0.04),
+    0 20px 40px -18px rgba(16, 32, 29, 0.13);
+  --shadow-nav: 0 -1px 0 var(--color-border), 0 -8px 24px -12px rgba(16, 32, 29, 0.10);
+
+  /* Gradients — 2-4% tonal shifts. Meant to be felt, not seen. */
+  --grad-surface: linear-gradient(180deg, #FFFFFF 0%, #FBFDFC 100%);
+  --grad-header: linear-gradient(165deg, #0F5A53 0%, #0B4F49 55%, #094440 100%);
+  --grad-primary: linear-gradient(180deg, #12867C 0%, #0F766E 100%);
+  --grad-danger-soft: linear-gradient(180deg, #FDEDED 0%, #FCE7E7 100%);
+  --grad-warning-soft: linear-gradient(180deg, #FDF5E4 0%, #FCEFD8 100%);
+  --grad-teal-soft: linear-gradient(180deg, #F0FBF9 0%, #E7F7F4 100%);
+  --grad-muted-soft: linear-gradient(180deg, #F1F4F3 0%, #EBEFEE 100%);
+
+  /* Type scale */
+  --text-display: 2.125rem;
+  --text-headline-lg: 1.75rem;
+  --text-headline: 1.375rem;
+  --text-stat-number: 1.75rem;
+  --text-body: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.8125rem;
+  --text-caption: 0.75rem;
+  --text-micro: 0.6875rem;
+
+  /* Radii & spacing */
+  --card-radius: 1rem;
+  --card-radius-sm: 0.625rem;
+  --card-padding: 1.25rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --font-sans: var(--font-inter-tight);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter-tight), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--teal-100);
+  color: var(--color-text-primary);
+}
+
+/* Every interactive element gets a visible, consistent focus ring. */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Inputs must be >=16px on iOS or Safari zooms the page on focus. */
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
