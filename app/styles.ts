@@ -386,7 +386,6 @@ export const pageCss = `
   }
   .tabitem-icon { width: auto; height: auto; background: none !important; }
 
-  .fab { display: none; }
   .toast-region { bottom: 28px; }
 
   .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
